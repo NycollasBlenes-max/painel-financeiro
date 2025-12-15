@@ -1,13 +1,19 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_from_directory
 from datetime import datetime
 import random
 import logging
+import os
 
 app = Flask(__name__)
 app.secret_key = 'sua_chave_secreta_aqui'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Rota para favicon
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'Simbolo.png', mimetype='image/png')
 
 # DADOS EM MEMÓRIA
 dados_bancos_memoria = [
